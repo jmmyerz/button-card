@@ -8,7 +8,6 @@ import { deepEqual } from './deep-equal';
 const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
 
 interface ActionHandler extends HTMLElement {
-  holdTime: number;
   bind(element: Element, options): void;
 }
 
@@ -21,6 +20,8 @@ export interface ActionHandlerOptions {
   hasDoubleClick?: boolean;
   disabled?: boolean;
   repeat?: number;
+  hold_release?: boolean;
+  hold_time?: number;
 }
 
 interface ActionHandlerElement extends HTMLElement {
@@ -42,8 +43,6 @@ declare global {
 }
 
 class ActionHandler extends HTMLElement implements ActionHandler {
-  public holdTime = 500;
-
   public ripple: Ripple;
 
   protected timer?: number;
@@ -147,14 +146,18 @@ class ActionHandler extends HTMLElement implements ActionHandler {
         this.held = false;
         this.timer = window.setTimeout(() => {
           this.startAnimation(x, y);
-          this.held = true;
-          if (options.repeat && !this.isRepeating) {
-            this.isRepeating = true;
-            this.repeatTimeout = setInterval(() => {
-              myFireEvent(element, 'action', { action: 'hold' });
-            }, options.repeat);
+          if (options.hold_release) {
+            myFireEvent(element, 'action', { action: 'hold' });
+          } else {
+            this.held = true;
+            if (options.repeat && !this.isRepeating) {
+              this.isRepeating = true;
+              this.repeatTimeout = setInterval(() => {
+                myFireEvent(element, 'action', { action: 'hold' });
+              }, options.repeat);
+            }
           }
-        }, this.holdTime);
+        }, options.hold_time);
       }
     };
 
