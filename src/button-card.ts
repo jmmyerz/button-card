@@ -755,6 +755,8 @@ class ButtonCard extends LitElement {
             hasDoubleClick: this._config!.double_tap_action!.action !== 'none',
             hasHold: this._config!.hold_action!.action !== 'none',
             repeat: this._config!.hold_action!.repeat,
+            hold_release: this._config!.hold_release,
+            hold_time: this._config!.hold_time,
           })}
           .config="${this._config}"
         >
@@ -969,6 +971,8 @@ class ButtonCard extends LitElement {
       group_expand: false,
       hold_action: { action: 'none' },
       double_tap_action: { action: 'none' },
+      hold_release: false,
+      hold_time: 500,
       layout: 'vertical',
       size: '40%',
       color_type: 'icon',
