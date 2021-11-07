@@ -145,9 +145,7 @@ class ActionHandler extends HTMLElement implements ActionHandler {
       if (options.hasHold) {
         this.held = false;
         this.timer = window.setTimeout(() => {
-          this.startAnimation(x, y);
           if (options.hold_release) {
-            this.stopAnimation();
             myFireEvent(element, 'action', { action: 'hold' });
           } else {
             this.held = true;
