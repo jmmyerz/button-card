@@ -736,6 +736,15 @@ class ButtonCard extends LitElement {
           </style>
         `
       : html``;
+    /* Removed ripple handlers from after @action
+          @focus="${this.handleRippleFocus}"
+          @blur="${this.handleRippleBlur}"
+          @mousedown="${this.handleRippleActivate}"
+          @mouseup="${this.handleRippleDeactivate}"
+          @touchstart="${this.handleRippleActivate}"
+          @touchend="${this.handleRippleDeactivate}"
+          @touchcancel="${this.handleRippleDeactivate}"
+    */
     return html`
       ${extraStyles}
       <div id="aspect-ratio" style=${styleMap(aspectRatio)}>
@@ -744,13 +753,6 @@ class ButtonCard extends LitElement {
           class=${classMap(classList)}
           style=${styleMap(cardStyle)}
           @action=${this._handleAction}
-          @focus="${this.handleRippleFocus}"
-          @blur="${this.handleRippleBlur}"
-          @mousedown="${this.handleRippleActivate}"
-          @mouseup="${this.handleRippleDeactivate}"
-          @touchstart="${this.handleRippleActivate}"
-          @touchend="${this.handleRippleDeactivate}"
-          @touchcancel="${this.handleRippleDeactivate}"
           .actionHandler=${actionHandler({
             hasDoubleClick: this._config!.double_tap_action!.action !== 'none',
             hasHold: this._config!.hold_action!.action !== 'none',
@@ -761,7 +763,7 @@ class ButtonCard extends LitElement {
           .config="${this._config}"
         >
           ${this._buttonContent(this._stateObj, configState, buttonColor)}
-          <mwc-ripple id="ripple"></mwc-ripple>
+          <!--<mwc-ripple id="ripple"></mwc-ripple>-->
         </ha-card>
       </div>
       ${this._getLock(lockStyle)}
