@@ -147,6 +147,7 @@ class ActionHandler extends HTMLElement implements ActionHandler {
         this.timer = window.setTimeout(() => {
           if (options.hold_release) {
             myFireEvent(element, 'action', { action: 'hold' });
+            ev.preventDefault();
           } else {
             this.held = true;
             if (options.repeat && !this.isRepeating) {
