@@ -147,7 +147,8 @@ class ActionHandler extends HTMLElement implements ActionHandler {
         this.timer = window.setTimeout(() => {
           if (options.hold_release) {
             myFireEvent(element, 'action', { action: 'hold' });
-            ev.preventDefault();
+            const cancel = new Event('touchcancel');
+            element.dispatchEvent(cancel);
           } else {
             this.held = true;
             if (options.repeat && !this.isRepeating) {
