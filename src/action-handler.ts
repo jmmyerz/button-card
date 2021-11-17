@@ -148,6 +148,7 @@ class ActionHandler extends HTMLElement implements ActionHandler {
           if (options.hold_release) {
             myFireEvent(element, 'action', { action: 'hold' });
             const cancel = new Event('touchcancel');
+            this.cancelled = true;
             element.dispatchEvent(cancel);
           } else {
             this.held = true;
@@ -201,7 +202,9 @@ class ActionHandler extends HTMLElement implements ActionHandler {
           myFireEvent(target, 'action', { action: 'double_tap' });
         }
       } else {
-        myFireEvent(target, 'action', { action: 'tap' });
+        if (!this.cancelled) {
+          myFireEvent(target, 'action', { action: 'tap' });
+        }
       }
     };
 
