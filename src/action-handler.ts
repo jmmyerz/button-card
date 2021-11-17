@@ -202,12 +202,7 @@ class ActionHandler extends HTMLElement implements ActionHandler {
           myFireEvent(target, 'action', { action: 'double_tap' });
         }
       } else {
-        if (this.cancelled) {
-          alert('Touch Cancelled');
-          return;
-        } else {
-          myFireEvent(target, 'action', { action: 'tap' });
-        }
+        myFireEvent(target, 'action', { action: 'tap' });
       }
     };
 
